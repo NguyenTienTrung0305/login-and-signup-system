@@ -1,0 +1,65 @@
+!! Có một số cách để lấy ra thông tin người dùng đang đăng nhập trong Spring Security. Một cách phổ biến là sử dụng phương 
+thức getPrincipal() trên đối tượng Authentication. Phương thức này sẽ trả về một object đại diện cho người dùng đã được xác 
+thực.
+  Một cách khác để lấy ra thông tin người dùng đang đăng nhập là sử dụng phương thức getDetails() trên đối tượng Authentication. 
+  Phương thức này sẽ trả về một object đại diện cho thông tin chi tiết về người dùng đã được xác thực.
+  
+
+!! SecurityContextHolder.getContext().getAuthentication() để lấy đối tượng Authentication
+	eg:
+		org.springframework.security.core.Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String username = loggedInUser.getName();
+		// tra ve nameuser cua user
+		
+
+
+!! Nhận thông tin người dùng trong thymeleaf
+	<body>
+    <div sec:authorize="isAuthenticated()"> Authenticated as 
+    	<span sec:authentication="name"></span>
+    </div>
+	</body>
+	</html>
+	
+	
+	+ name - Tên của người dùng.
+	+ username - Username của người dùng.
+	+ authorities - Danh sách các quyền của người dùng.
+	+ details - Thông tin chi tiết về người dùng.
+	+ principal - Principal của người dùng.
+	
+	
+
+	
+// HttpSession : được sử dụng để lưu trữ dữ liệu về người dùng, chẳng hạn như thông tin đăng nhập, giỏ hàng mua sắm hoặc 
+cài đặt tùy chỉnh.
+
+	+ HttpSession được tạo khi người dùng truy cập một trang web và bị xóa khi người dùng đóng trình duyệt web hoặc hết 
+	thời gian phiên
+	
+	+ HttpSession có thể được truy cập bằng cách sử dụng phương thức getSession() trên đối tượng HttpServletRequest. Phương 
+	thức này trả về một đối tượng HttpSession nếu có một phiên hiện có cho người dùng, nếu không thì nó tạo một phiên mới.
+	
+	!! eg:sử dụng HttpSession để lưu trữ thông tin đăng nhập của người dùng:
+	
+		// Lấy phiên hiện có hoặc tạo một phiên mới
+		HttpSession session = request.getSession();
+
+		// Lưu trữ thông tin đăng nhập của người dùng
+		session.setAttribute("username", "johndoe");
+		session.setAttribute("password", "secret");
+		
+		
+	!! Dữ liệu được lưu trữ trong HttpSession có thể truy cập được từ bất kỳ trang web nào trong phiên. Ví dụ, nếu người dùng
+	 thêm một mặt hàng vào giỏ hàng mua sắm, dữ liệu về mặt hàng đó sẽ được lưu trữ trong HttpSession. Khi người dùng truy cập 
+	 trang giỏ hàng, họ sẽ có thể xem tất cả các mặt hàng trong giỏ hàng của mình.
+	
+
+// setAttribute() thêm giá trị vào đối tượng Model với một khóa cố định. Phương thức này thường được sử dụng để thêm dữ liệu
+cần được sử dụng trong tất cả các trang của ứng dụng.
+// addAttribute() thêm giá trị vào đối tượng Model với một khóa động. Phương thức này thường được sử dụng để thêm dữ liệu chỉ 
+cần được sử dụng trong một trang cụ thể.	
+	
+	
+	
+	
