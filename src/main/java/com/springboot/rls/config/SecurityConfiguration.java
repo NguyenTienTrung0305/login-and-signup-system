@@ -65,7 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	                "/js/**",
 	                "/css/**",
 	                "/img/**").permitAll()
-		.anyRequest().authenticated()
+		.anyRequest().authenticated() // authenticate() sẽ lấy username và password làm đầu vào và tìm kiếm người dùng trong cơ sở dữ liệu. Nếu người 
+									// dùng được tìm thấy, phương thức này sẽ sử dụng PasswordEncoder để xác thực mật khẩu
 		.and()
 		.formLogin()
 		.loginPage("/login")
